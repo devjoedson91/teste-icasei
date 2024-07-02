@@ -1,14 +1,15 @@
 import "./style.css";
+import configs from "../src/utils/config.json" assert { type: "json" };
+import { MFDrawer } from "./components/mf-drawer";
 import { VideoItem, VideoProps } from "./components/video-item";
-import configs from "./config.json" assert { type: "json" };
+export interface AnchorProps extends HTMLAnchorElement {
+  style: CSSStyleDeclaration;
+}
+
+const mfDrawer = MFDrawer();
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
-  <aside class="mf-drawer">
-    <h1>MF Drawer</h1>
-    <div>
-
-    </div>
-  </aside>
+  ${mfDrawer}
   <main class="mf-videos">
     <header>
       <div>
@@ -35,6 +36,9 @@ const videoList = document.querySelector<HTMLDivElement>(".video-list")!;
 const sheetDrawer = document.querySelector<HTMLDivElement>(".sheet-drawer")!;
 const searchInput = document.querySelector<HTMLInputElement>(".search-input")!;
 const btnSearch = document.querySelector<HTMLButtonElement>(".btn-search")!;
+
+const videosAnchor = document.querySelector<AnchorProps>(".videos-anchor")!;
+const favsAnchor = document.querySelector<AnchorProps>(".favs-anchor")!;
 
 const btnDrawerMenu =
   document.querySelector<HTMLButtonElement>(".btn-drawer-menu")!;
@@ -65,34 +69,48 @@ async function searchByKeyword(keyword: string) {
   const queryString = new URLSearchParams(params).toString();
   const url = `https://www.googleapis.com/youtube/v3/search?${queryString}`;
 
-  try {
-    const response = await fetch(url);
+  // try {
+  //   const response = await fetch(url);
 
-    if (!response.ok) {
-      throw new Error(`Erro na solicitação: ${response.statusText}`);
-    }
+  //   if (!response.ok) {
+  //     throw new Error(`Erro na solicitação: ${response.statusText}`);
+  //   }
 
-    const data = await response.json();
+  //   const data = await response.json();
 
-    const videoitems = videoList.querySelectorAll(".video-item");
+  //   const videoitems = videoList.querySelectorAll(".video-item");
 
-    if (videoitems.length > 0) {
-      videoitems.forEach((item) => videoList.removeChild(item));
-    }
+  //   if (videoitems.length > 0) {
+  //     videoitems.forEach((item) => videoList.removeChild(item));
+  //   }
 
-    data.items.forEach((video: VideoProps) => {
-      const videoItem = VideoItem(video);
-      videoList.appendChild(videoItem);
-    });
-  } catch (error) {}
+  //   data.items.forEach((video: VideoProps) => {
+  //     const videoItem = VideoItem(video);
+  //     videoList.appendChild(videoItem);
+  //   });
+  // } catch (error) {}
 }
+
+!searchInput.value && searchByKeyword("icasei");
 
 searchInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
 
-    searchByKeyword(searchInput.value);
+    searchByKeyword(searchInput.value || "icasei");
   }
 });
 
-btnSearch.addEventListener("click", () => searchByKeyword(searchInput.value));
+btnSearch.addEventListener("click", () =>
+  searchByKeyword(searchInput.value || "icasei")
+);
+
+// ROUTES CONTROL
+
+function handleNavigation() {
+  window.location.href = "/favs";
+}
+
+favsAnchor.addEventListener("click", handleNavigation);
+
+videosAnchor.style.color = "#f88b0c";

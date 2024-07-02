@@ -21,7 +21,7 @@ export function VideoItem(video: VideoProps): HTMLDivElement {
   videoItem.classList.add("video-item");
 
   const videoPlay = CardPlay(video);
-  const cardFooter = CardFooter(video.snippet.title);
+  const cardFooter = CardFooter(video);
 
   videoItem.appendChild(videoPlay);
   videoItem.appendChild(cardFooter);

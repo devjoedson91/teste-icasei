@@ -94,7 +94,7 @@ btnSearch.addEventListener("click", () => loadVideos(searchInput.value));
 // ROUTES CONTROL
 
 function handleNavigation() {
-  window.location.href = "/favs.html";
+  window.location.href = "/favs/index.html";
 }
 
 favsAnchor.addEventListener("click", handleNavigation);

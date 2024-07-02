@@ -2,6 +2,7 @@ import "./style.css";
 import { MFDrawer } from "./components/mf-drawer";
 import { SheetDrawer } from "./components/sheet-drawer";
 import { searchByKeyword } from "./utils/functions";
+import { VideoItem, VideoProps } from "./components/video-item";
 export interface AnchorProps extends HTMLAnchorElement {
   style: CSSStyleDeclaration;
 }
@@ -44,6 +45,7 @@ const favsAnchorDrawer = document.querySelector<AnchorProps>(
 )!;
 const btnDrawerMenu =
   document.querySelector<HTMLButtonElement>(".btn-drawer-menu")!;
+const videoList = document.querySelector<HTMLDivElement>(".video-list")!;
 
 // DRAWER MENU EXIBITION CONTROL
 
@@ -62,19 +64,32 @@ drawer.addEventListener("click", handleCloseDrawerMenu);
 
 // CALL YOUTUBE API
 
-!searchInput.value && searchByKeyword("icasei");
+async function loadVideos(keyword: string) {
+  const data = await searchByKeyword(keyword || "icasei");
+
+  const videoitems = videoList.querySelectorAll(".video-item");
+
+  if (videoitems.length > 0) {
+    videoitems.forEach((item) => videoList.removeChild(item));
+  }
+
+  data.items.forEach((video: VideoProps) => {
+    const videoItem = VideoItem(video);
+    videoList.appendChild(videoItem);
+  });
+}
+
+loadVideos(searchInput.value);
 
 searchInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
 
-    searchByKeyword(searchInput.value || "icasei");
+    loadVideos(searchInput.value);
   }
 });
 
-btnSearch.addEventListener("click", () =>
-  searchByKeyword(searchInput.value || "icasei")
-);
+btnSearch.addEventListener("click", () => loadVideos(searchInput.value));
 
 // ROUTES CONTROL
 

@@ -32,6 +32,10 @@ button {
   background-color: transparent;
 }
 
+i {
+  color: #ffffff;
+}
+
 input {
   display: flex;
   width: 180px;
@@ -41,6 +45,8 @@ input {
   border: none;
   outline: none;
   background-color: #202024;
+  color: #ffffff;
+  font-weight: 600;
 }
 
 #app {
@@ -68,6 +74,7 @@ input {
   padding: 0;
   margin-top: 20px;
   list-style: none;
+  gap: 20px;
 }
 
 .mf-drawer ul li:nth-child(1),

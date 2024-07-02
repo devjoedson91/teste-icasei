@@ -23,7 +23,7 @@ body {
 }
 
 h1 {
-  font-size: 22px;
+  font-size: 16px;
 }
 
 button {
@@ -34,7 +34,7 @@ button {
 
 input {
   display: flex;
-  width: 250px;
+  width: 180px;
   height: 32px;
   border-radius: 6px;
   padding: 0 12px;
@@ -43,8 +43,7 @@ input {
   background-color: #202024;
 }
 
-#app,
-#favs {
+#app {
   width: 100vw;
   display: flex;
   flex: 1 1 100vw;
@@ -61,7 +60,8 @@ input {
   min-height: 100vh;
 }
 
-.mf-drawer ul {
+.mf-drawer ul,
+.sheet-drawer-content ul {
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -70,20 +70,23 @@ input {
   list-style: none;
 }
 
-.mf-drawer ul li:nth-child(1) {
+.mf-drawer ul li:nth-child(1),
+.sheet-drawer-content ul li:nth-child(1) {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.mf-drawer ul li:nth-child(2) {
+.mf-drawer ul li:nth-child(2),
+.sheet-drawer-content ul li:nth-child(2) {
   display: flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
 }
 
-.mf-drawer ul li:nth-child(2) .link-videos {
+.mf-drawer ul li:nth-child(2) .link-videos,
+.sheet-drawer-content ul li:nth-child(2) .link-videos {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -97,29 +100,33 @@ input {
   text-decoration: none;
 }
 
+.sheet-drawer-content ul li .link-videos a,
+.sheet-drawer-content ul li a {
+  font-weight: bold;
+  transition: 0.3s;
+  cursor: pointer;
+  text-decoration: none;
+}
+
 .mf-drawer ul li .link-videos a:hover,
 .mf-drawer ul li a:hover {
   color: #f88b0c;
 }
 
-.mf-drawer i {
-  font-size: 22px;
-}
-
-.mf-drawer ul li h2 {
-  font-size: 18px;
+.sheet-drawer-content ul li .link-videos a:hover,
+.sheet-drawer-content ul li a:hover {
   color: #f88b0c;
 }
 
-.drawer-menu {
-  position: absolute;
-  width: 50%;
-  background-color: white;
-  right: 0;
-  top: 0;
-  height: 100%;
-  animation: drawer 0.5s ease-in-out;
-  display: none;
+.mf-drawer i,
+.sheet-drawer-content i {
+  font-size: 22px;
+}
+
+.mf-drawer ul li h2,
+.sheet-drawer-content ul li h2 {
+  font-size: 18px;
+  color: #f88b0c;
 }
 
 .mf-videos {
@@ -135,7 +142,7 @@ input {
   border-bottom-width: 1px;
   border-bottom-color: #4e0083;
   border-bottom-style: solid;
-  padding: 4px 16px;
+  padding: 16px;
 }
 
 .mf-videos header div {
@@ -168,15 +175,8 @@ input {
   justify-content: space-between;
 }
 
-/* .video-item h1 {
-  font-size: 12px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-} */
-
 .video-item .card-footer h1 {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .video-item .card-footer i {
@@ -227,8 +227,13 @@ input {
 
 .sheet-drawer .sheet-drawer-content {
   background: linear-gradient(to top, #28004f, #4e0083);
-  animation: drawer 0.5s ease;
+  animation: drawer 0.7s ease;
   width: 50%;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .search-content {
@@ -246,15 +251,22 @@ input {
 }
 
 @media (min-width: 768px) {
+  input {
+    width: 400px;
+  }
   .mf-videos .video-list,
   .mf-videos .favs-list {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .mf-videos header {
+    padding: 4px 16px;
+  }
 }
 
 @media (min-width: 960px) {
-  input {
-    width: 400px;
+  h1 {
+    font-size: 20px;
   }
   .mf-drawer {
     display: flex;
@@ -268,13 +280,16 @@ input {
   .btn-drawer-menu {
     display: none;
   }
+
+  .video-item .card-footer h1 {
+    font-size: 12px;
+  }
 }
 
 @media (min-width: 1280px) {
   .mf-videos .video-list,
   .mf-videos .favs-list {
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
   }
 }
 

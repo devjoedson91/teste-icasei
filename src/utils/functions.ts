@@ -1,11 +1,9 @@
 import { VideoItem, VideoProps } from "../components/video-item";
-import configs from "../config.json";
+import configs from "../utils/config.json";
 
 const videoList = document.querySelector<HTMLDivElement>(".video-list")!;
 
 export async function searchByKeyword(keyword: string) {
-  console.log("oi");
-
   const params: Record<string, any> = {
     part: "snippet",
     q: keyword,
@@ -18,24 +16,24 @@ export async function searchByKeyword(keyword: string) {
   const queryString = new URLSearchParams(params).toString();
   const url = `https://www.googleapis.com/youtube/v3/search?${queryString}`;
 
-  try {
-    const response = await fetch(url);
+  // try {
+  //   const response = await fetch(url);
 
-    if (!response.ok) {
-      throw new Error(`Erro na solicitação: ${response.statusText}`);
-    }
+  //   if (!response.ok) {
+  //     throw new Error(`Erro na solicitação: ${response.statusText}`);
+  //   }
 
-    const data = await response.json();
+  //   const data = await response.json();
 
-    const videoitems = videoList.querySelectorAll(".video-item");
+  //   const videoitems = videoList.querySelectorAll(".video-item");
 
-    if (videoitems.length > 0) {
-      videoitems.forEach((item) => videoList.removeChild(item));
-    }
+  //   if (videoitems.length > 0) {
+  //     videoitems.forEach((item) => videoList.removeChild(item));
+  //   }
 
-    data.items.forEach((video: VideoProps) => {
-      const videoItem = VideoItem(video);
-      videoList.appendChild(videoItem);
-    });
-  } catch (error) {}
+  //   data.items.forEach((video: VideoProps) => {
+  //     const videoItem = VideoItem(video);
+  //     videoList.appendChild(videoItem);
+  //   });
+  // } catch (error) {}
 }

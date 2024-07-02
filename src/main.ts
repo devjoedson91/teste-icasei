@@ -1,12 +1,13 @@
 import "./style.css";
-import configs from "../src/utils/config.json" assert { type: "json" };
 import { MFDrawer } from "./components/mf-drawer";
-import { VideoItem, VideoProps } from "./components/video-item";
+import { SheetDrawer } from "./components/sheet-drawer";
+import { searchByKeyword } from "./utils/functions";
 export interface AnchorProps extends HTMLAnchorElement {
   style: CSSStyleDeclaration;
 }
 
 const mfDrawer = MFDrawer();
+const sheetDrawer = SheetDrawer();
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   ${mfDrawer}
@@ -27,69 +28,39 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     </header>
     <div class="video-list"></div>
   </main>
-  <div class="sheet-drawer">
-    <div class="sheet-drawer-content"></div>
-  </div>
+  ${sheetDrawer}
 `;
 
-const videoList = document.querySelector<HTMLDivElement>(".video-list")!;
-const sheetDrawer = document.querySelector<HTMLDivElement>(".sheet-drawer")!;
 const searchInput = document.querySelector<HTMLInputElement>(".search-input")!;
 const btnSearch = document.querySelector<HTMLButtonElement>(".btn-search")!;
-
+const drawer = document.querySelector<HTMLDivElement>(".sheet-drawer")!;
 const videosAnchor = document.querySelector<AnchorProps>(".videos-anchor")!;
+const videosAnchorDrawer = document.querySelector<AnchorProps>(
+  ".sheet-drawer-content .videos-anchor"
+)!;
 const favsAnchor = document.querySelector<AnchorProps>(".favs-anchor")!;
-
+const favsAnchorDrawer = document.querySelector<AnchorProps>(
+  ".sheet-drawer-content .favs-anchor"
+)!;
 const btnDrawerMenu =
   document.querySelector<HTMLButtonElement>(".btn-drawer-menu")!;
 
+// DRAWER MENU EXIBITION CONTROL
+
 function handleOpenDrawerMenu() {
-  sheetDrawer.style.display = "flex";
+  drawer.style.display = "flex";
 }
 
 function handleCloseDrawerMenu(event: Event) {
-  if (event.target === sheetDrawer) {
-    sheetDrawer.style.display = "none";
+  if (event.target === drawer) {
+    drawer.style.display = "none";
   }
 }
 
 btnDrawerMenu.addEventListener("click", handleOpenDrawerMenu);
-sheetDrawer.addEventListener("click", handleCloseDrawerMenu);
+drawer.addEventListener("click", handleCloseDrawerMenu);
 
-async function searchByKeyword(keyword: string) {
-  const params: Record<string, any> = {
-    part: "snippet",
-    q: keyword,
-    type: "video",
-    maxResults: 8,
-    key: configs.GOOGLE_KEY,
-    fields: "items(id(videoId), snippet(title, thumbnails(medium(url))))",
-  };
-
-  const queryString = new URLSearchParams(params).toString();
-  const url = `https://www.googleapis.com/youtube/v3/search?${queryString}`;
-
-  // try {
-  //   const response = await fetch(url);
-
-  //   if (!response.ok) {
-  //     throw new Error(`Erro na solicitação: ${response.statusText}`);
-  //   }
-
-  //   const data = await response.json();
-
-  //   const videoitems = videoList.querySelectorAll(".video-item");
-
-  //   if (videoitems.length > 0) {
-  //     videoitems.forEach((item) => videoList.removeChild(item));
-  //   }
-
-  //   data.items.forEach((video: VideoProps) => {
-  //     const videoItem = VideoItem(video);
-  //     videoList.appendChild(videoItem);
-  //   });
-  // } catch (error) {}
-}
+// CALL YOUTUBE API
 
 !searchInput.value && searchByKeyword("icasei");
 
@@ -112,5 +83,7 @@ function handleNavigation() {
 }
 
 favsAnchor.addEventListener("click", handleNavigation);
+favsAnchorDrawer.addEventListener("click", handleNavigation);
 
 videosAnchor.style.color = "#f88b0c";
+videosAnchorDrawer.style.color = "#f88b0c";

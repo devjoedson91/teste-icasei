@@ -23,7 +23,7 @@ body {
 }
 
 h1 {
-  font-size: 16px;
+  font-size: 22px;
 }
 
 button {
@@ -72,7 +72,7 @@ input {
   flex-direction: column;
   width: 80%;
   padding: 0;
-  margin-top: 20px;
+  margin-top: 40px;
   list-style: none;
   gap: 10px;
 }
@@ -113,6 +113,7 @@ input {
   transition: 0.3s;
   cursor: pointer;
   text-decoration: none;
+  font-size: 20px;
 }
 
 .mf-drawer ul li .link-videos a:hover,
@@ -127,12 +128,11 @@ input {
 
 .mf-drawer i,
 .sheet-drawer-content i {
-  font-size: 22px;
+  font-size: 26px;
 }
 
-.mf-drawer ul li h2,
 .sheet-drawer-content ul li h2 {
-  font-size: 18px;
+  font-size: 20px;
   color: #f88b0c;
 }
 
@@ -155,7 +155,7 @@ input {
 .mf-videos header div {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
 }
 
 .mf-videos header button i {
@@ -241,6 +241,7 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 20px;
 }
 
 .search-content {
@@ -286,6 +287,15 @@ input {
   .drawer-menu,
   .btn-drawer-menu {
     display: none;
+  }
+
+  .sheet-drawer {
+    display: none;
+  }
+
+  .mf-drawer ul li h2 {
+    color: #f88b0c;
+    font-size: 18px;
   }
 
   .video-item .card-footer h1 {

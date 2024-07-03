@@ -21,6 +21,8 @@ export function saveFavorite(key: string, newItem: VideoProps) {
   myFavorite.push(newItem);
 
   localStorage.setItem(key, JSON.stringify(myFavorite));
+
+  return myFavorite;
 }
 
 export function removeItem(id: string) {
@@ -31,6 +33,8 @@ export function removeItem(id: string) {
   });
 
   localStorage.setItem("@myvideos", JSON.stringify(myFavorites));
+
+  return myFavorites;
 }
 
 export function isFavorite(video: VideoProps) {

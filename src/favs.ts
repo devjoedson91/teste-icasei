@@ -1,4 +1,3 @@
-import "./style.css";
 import { MFDrawer } from "./components/mf-drawer";
 import { VideoItem, VideoProps } from "./components/video-item";
 import { getFavorites } from "./utils/storage";
@@ -18,12 +17,12 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         <i class="ph ph-list"></i>
       </button>
     </header>
-    <div class="favs-list"></div>
+    <div class="video-list"></div>
   </main>
   ${sheetDrawer}
 `;
 
-const videoList = document.querySelector<HTMLDivElement>(".favs-list")!;
+const videoList = document.querySelector<HTMLDivElement>(".video-list")!;
 const videosAnchor =
   document.querySelector<HTMLAnchorElement>(".videos-anchor")!;
 const videosAnchorDrawer = document.querySelector<HTMLAnchorElement>(
@@ -52,10 +51,14 @@ function handleCloseDrawerMenu(event: Event) {
 btnDrawerMenu.addEventListener("click", handleOpenDrawerMenu);
 drawer.addEventListener("click", handleCloseDrawerMenu);
 
-favorites.forEach((video: VideoProps) => {
-  const videoItem = VideoItem(video);
-  videoList.appendChild(videoItem);
-});
+if (!favorites.length) {
+  videoList.innerHTML = `<div class="empty-list"><h1>Sua lista de favoritos está vazia</h1> </div>`;
+} else {
+  favorites.forEach((video: VideoProps) => {
+    const videoItem = VideoItem(video);
+    videoList.appendChild(videoItem);
+  });
+}
 
 // ROUTES CONTROL
 

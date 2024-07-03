@@ -18,7 +18,7 @@ export function SheetDrawer(): string {
                     <i class="ph-bold ph-heart"></i>
                     <a class="favs-anchor">Favoritos</a>
                 </div>
-                <h2>${
+                <h2 class="counter">${
                   favorites.length > 0 ? "(" + favorites.length + ")" : ""
                 }</h2>
             </li>

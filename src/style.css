@@ -20,10 +20,11 @@ body {
   outline: none;
   display: flex;
   place-items: center;
+  overflow-x: hidden;
 }
 
 h1 {
-  font-size: 22px;
+  font-size: 20px;
 }
 
 button {
@@ -140,6 +141,7 @@ input {
   display: flex;
   flex-direction: column;
   flex: 1 1 100vw;
+  position: relative;
 }
 
 .mf-videos header {
@@ -152,18 +154,11 @@ input {
   padding: 16px;
 }
 
-.mf-videos header div {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
 .mf-videos header button i {
   font-size: 32px;
 }
 
-.mf-videos .video-list,
-.mf-videos .favs-list {
+.mf-videos .video-list {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
@@ -258,12 +253,18 @@ input {
   font-size: 20px;
 }
 
+.empty-list {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 @media (min-width: 768px) {
   input {
     width: 400px;
   }
-  .mf-videos .video-list,
-  .mf-videos .favs-list {
+  .mf-videos .video-list {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -279,8 +280,7 @@ input {
   .mf-drawer {
     display: flex;
   }
-  .mf-videos .video-list,
-  .mf-videos .favs-list {
+  .mf-videos .video-list {
     grid-template-columns: repeat(3, 1fr);
   }
 
@@ -304,8 +304,7 @@ input {
 }
 
 @media (min-width: 1280px) {
-  .mf-videos .video-list,
-  .mf-videos .favs-list {
+  .mf-videos .video-list {
     grid-template-columns: repeat(4, 1fr);
   }
 }

@@ -1,3 +1,4 @@
+import { VideoItem, VideoProps } from "../components/video-item";
 import configs from "../utils/config.json";
 
 export async function searchByKeyword(keyword: string) {
@@ -25,5 +26,24 @@ export async function searchByKeyword(keyword: string) {
     return data;
   } catch (error: any) {
     console.log(error);
+  }
+}
+
+export function updateListVideos(list: VideoProps[]) {
+  const videoList = document.querySelector<HTMLDivElement>(".video-list")!;
+
+  const videoitems = videoList.querySelectorAll(".video-item")!;
+
+  if (videoitems.length > 0) {
+    videoitems.forEach((item) => videoList.removeChild(item));
+  }
+
+  list.forEach((video: VideoProps) => {
+    const videoItem = VideoItem(video);
+    videoList.appendChild(videoItem);
+  });
+
+  if (window.location.pathname !== "/" && !list.length) {
+    videoList.innerHTML = `<div class="empty-list"><h1>Sua lista de favoritos está vazia</h1> </div>`;
   }
 }

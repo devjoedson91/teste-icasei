@@ -5,6 +5,7 @@ import {
   saveFavorite,
 } from "../utils/storage";
 import { VideoProps } from "./video-item";
+import { counterFavs } from "../components/counter-favs";
 
 export function CardFooter(video: VideoProps): HTMLDivElement {
   const cardFooter = document.createElement("div");
@@ -29,22 +30,10 @@ export function CardFooter(video: VideoProps): HTMLDivElement {
 
   btnIcon.appendChild(starIcon);
 
-  function handleFavoriteVideo() {
-    const videoFavorite = isFavorite(video);
-
-    if (videoFavorite) {
-      removeItem(video.id.videoId);
-      starIcon.style.color = "#fff";
-    } else {
-      saveFavorite("@myvideos", video);
-      starIcon.style.color = "#F88B0C";
-    }
-  }
-
-  btnIcon.addEventListener("click", handleFavoriteVideo);
-
   cardFooter.appendChild(title);
   cardFooter.appendChild(btnIcon);
+
+  counterFavs(btnIcon, starIcon, video);
 
   return cardFooter;
 }

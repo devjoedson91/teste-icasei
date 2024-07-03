@@ -1,3 +1,4 @@
+import { EmptyList } from "../components/empty-list";
 import { VideoItem, VideoProps } from "../components/video-item";
 import configs from "../utils/config.json";
 
@@ -30,8 +31,8 @@ export async function searchByKeyword(keyword: string) {
 }
 
 export function updateListVideos(list: VideoProps[]) {
+  const mainContainer = document.querySelector(".mf-videos")!;
   const videoList = document.querySelector<HTMLDivElement>(".video-list")!;
-
   const videoitems = videoList.querySelectorAll(".video-item")!;
 
   if (videoitems.length > 0) {
@@ -44,6 +45,10 @@ export function updateListVideos(list: VideoProps[]) {
   });
 
   if (window.location.pathname !== "/" && !list.length) {
-    videoList.innerHTML = `<div class="empty-list"><h1>Sua lista de favoritos está vazia</h1> </div>`;
+    videoList.remove();
+
+    const emptyList = EmptyList("Sua lista de favoritos está vazia");
+
+    mainContainer.appendChild(emptyList);
   }
 }

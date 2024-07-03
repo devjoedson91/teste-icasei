@@ -3,6 +3,7 @@ import { VideoItem, VideoProps } from "./components/video-item";
 import { getFavorites } from "./utils/storage";
 import { AnchorProps } from "./main";
 import { SheetDrawer } from "./components/sheet-drawer";
+import { EmptyList } from "./components/empty-list";
 
 const mfDrawer = MFDrawer();
 const favorites = getFavorites("@myvideos");
@@ -22,6 +23,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   ${sheetDrawer}
 `;
 
+const mainContainer = document.querySelector(".mf-videos")!;
 const videoList = document.querySelector<HTMLDivElement>(".video-list")!;
 const videosAnchor =
   document.querySelector<HTMLAnchorElement>(".videos-anchor")!;
@@ -52,7 +54,11 @@ btnDrawerMenu.addEventListener("click", handleOpenDrawerMenu);
 drawer.addEventListener("click", handleCloseDrawerMenu);
 
 if (!favorites.length) {
-  videoList.innerHTML = `<div class="empty-list"><h1>Sua lista de favoritos está vazia</h1> </div>`;
+  videoList.remove();
+
+  const emptyList = EmptyList("Sua lista de favoritos está vazia");
+
+  mainContainer.appendChild(emptyList);
 } else {
   favorites.forEach((video: VideoProps) => {
     const videoItem = VideoItem(video);

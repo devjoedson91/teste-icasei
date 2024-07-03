@@ -141,7 +141,6 @@ input {
   display: flex;
   flex-direction: column;
   flex: 1 1 100vw;
-  position: relative;
 }
 
 .mf-videos header {
@@ -254,10 +253,11 @@ input {
 }
 
 .empty-list {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 768px) {

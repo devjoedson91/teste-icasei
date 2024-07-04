@@ -1,5 +1,4 @@
 import { VideoProps } from "../../components/video-item";
-<<<<<<< Updated upstream
 import { searchByKeyword, updateListVideos } from "../functions";
 
 document.body.innerHTML = `
@@ -21,23 +20,22 @@ document.body.innerHTML = `
     </main>
   </div>
 `;
-=======
-import { searchByKeyword } from "../functions";
-import { screen } from "@testing-library/dom";
-
-const fn = jest.fn(searchByKeyword);
->>>>>>> Stashed changes
 
 describe("functions tests", () => {
   it("searchByKeyword should be called with a string param", () => {
+    const fn = jest.fn(searchByKeyword);
+
     fn("javascript");
 
     expect(typeof fn.mock.calls[0][0]).toBe("string");
   });
 
-<<<<<<< Updated upstream
   it("updateListVideos should be called with a list array param", () => {
     const fn = jest.fn(updateListVideos);
+
+    document.querySelector(".mf-videos")!;
+    const videoList = document.querySelector<HTMLDivElement>(".video-list")!;
+    videoList.querySelectorAll(".video-item")!;
 
     const list: VideoProps[] = [
       {
@@ -58,13 +56,5 @@ describe("functions tests", () => {
     fn(list);
 
     expect(typeof fn.mock.calls[0][0]).toBe("object");
-=======
-  it("searchByKeyword should return a promise", async () => {
-    expect(searchByKeyword("javascript")).toBeInstanceOf(Promise);
-
-    const data = await fn("javascript");
-
-    expect(data).toBe({});
->>>>>>> Stashed changes
   });
 });

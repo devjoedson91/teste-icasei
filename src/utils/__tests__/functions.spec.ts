@@ -21,6 +21,22 @@ document.body.innerHTML = `
   </div>
 `;
 
+let list: VideoProps[] = [
+  {
+    id: {
+      videoId: "lkIFF4maKMU",
+    },
+    snippet: {
+      title: "100+ JavaScript Concepts you Need to Know",
+      thumbnails: {
+        medium: {
+          url: "https://i.ytimg.com/vi/lkIFF4maKMU/mqdefault.jpg",
+        },
+      },
+    },
+  },
+];
+
 describe("functions tests", () => {
   it("searchByKeyword should be called with a string param", () => {
     const fn = jest.fn(searchByKeyword);
@@ -33,28 +49,25 @@ describe("functions tests", () => {
   it("updateListVideos should be called with a list array param", () => {
     const fn = jest.fn(updateListVideos);
 
-    document.querySelector(".mf-videos")!;
-    const videoList = document.querySelector<HTMLDivElement>(".video-list")!;
-    videoList.querySelectorAll(".video-item")!;
-
-    const list: VideoProps[] = [
-      {
-        id: {
-          videoId: "lkIFF4maKMU",
-        },
-        snippet: {
-          title: "100+ JavaScript Concepts you Need to Know",
-          thumbnails: {
-            medium: {
-              url: "https://i.ytimg.com/vi/lkIFF4maKMU/mqdefault.jpg",
-            },
-          },
-        },
-      },
-    ];
-
     fn(list);
 
     expect(typeof fn.mock.calls[0][0]).toBe("object");
+  });
+
+  it("video item doesn't should be removed when pathname to equal /", () => {
+    const fn = jest.fn(updateListVideos);
+
+    fn(list);
+
+    Object.defineProperty(window, "location", {
+      writable: true,
+      value: {
+        pathname: "/",
+      },
+    });
+
+    const videoList = document.querySelector<HTMLDivElement>(".video-list")!;
+
+    expect(videoList).not.toBeEmptyDOMElement();
   });
 });

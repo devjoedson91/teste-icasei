@@ -28,6 +28,9 @@ git clone https://github.com/devjoedson91/teste-icasei.git
 instale as dependencias com npm install
 execute o projeto com o comando npm run dev
 
+# testar o projeto
+execute o comando npm run test
+
 # Autor
 
 Joedson Ferreira
